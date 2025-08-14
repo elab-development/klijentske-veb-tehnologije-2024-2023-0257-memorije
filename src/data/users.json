@@ -1,0 +1,30 @@
+[
+  {
+    "id": "u1",
+    "firstName": "Jovana",
+    "lastName": "Antić",
+    "username": "jovana",
+    "password": "lozinka123",
+    "games": [
+      { "id": "g1", "mode": "Lako",   "timeMs": 27500, "playedAt": "2025-08-01T14:10:00Z" },
+      { "id": "g2", "mode": "Srednje","timeMs": 42000, "playedAt": "2025-08-02T15:10:00Z" },
+      { "id": "g3", "mode": "Teško",  "timeMs": 61000, "playedAt": "2025-08-03T16:10:00Z" },
+      { "id": "g4", "mode": "Lako",   "timeMs": 23000, "playedAt": "2025-08-04T17:10:00Z" },
+      { "id": "g5", "mode": "Srednje","timeMs": 39000, "playedAt": "2025-08-05T18:10:00Z" }
+    ]
+  },
+  {
+    "id": "u2",
+    "firstName": "Matija",
+    "lastName": "Stefanovic",
+    "username": "matija",
+    "password": "pass",
+    "games": [
+      { "id": "g1", "mode": "Lako",   "timeMs": 30000, "playedAt": "2025-08-01T10:00:00Z" },
+      { "id": "g2", "mode": "Lako",   "timeMs": 28000, "playedAt": "2025-08-02T10:00:00Z" },
+      { "id": "g3", "mode": "Srednje","timeMs": 45000, "playedAt": "2025-08-03T10:00:00Z" },
+      { "id": "g4", "mode": "Teško",  "timeMs": 70000, "playedAt": "2025-08-04T10:00:00Z" },
+      { "id": "g5", "mode": "Srednje","timeMs": 48000, "playedAt": "2025-08-05T10:00:00Z" }
+    ]
+  }
+]

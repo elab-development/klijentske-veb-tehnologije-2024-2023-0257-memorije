@@ -9,17 +9,20 @@ const Register = () => {
         <h1 className="mb-8 font-bold text-3xl text-center">Registrujte se</h1>
         <form className="items-center flex flex-col gap-8">
           <Input
+            onChange={()=>{}}
             label="Korisničko ime"
             type="text"
             placeholder="Unesite korisničko ime"
           />
           <div className="flex lg:flex-row flex-col w-full gap-8">
             <Input
+              onChange={()=>{}}
               label="Lozinka"
               type="password"
               placeholder="Unesite lozinku"
             />
             <Input
+              onChange={()=>{}}
               label="Potvrdite lozinku"
               type="password"
               placeholder="Unesite ponovo"

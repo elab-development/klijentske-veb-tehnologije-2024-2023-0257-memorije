@@ -8,7 +8,6 @@ interface GameProps {
 
 const Game = ({ gameMode, setStartedGame }: GameProps) => {
   const [seconds, setSeconds] = useState(0);
-
   const vratiBrojPolja = () => {
     switch (gameMode) {
       case "Lako":
@@ -40,6 +39,7 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
 
   return (
     <main className="relative flex min-h-screen items-center justify-center">
+     
       <div className="z-10 bg-primary md:border border-tertiary rounded-2xl p-2 md:p-4 lg:p-8 flex lg:flex-row flex-col w-full gap-4 max-w-6xl">
         <div className="flex lg:hidden items-center justify-between">
           <div className="p-2 flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
