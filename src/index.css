@@ -17,7 +17,10 @@
 @theme {
   /* Custom boje */
   --color-primary: #0f131d;
+  --color-dark-blue: #3F94AC;
   --color-secondary: #101725;
+  --color-tertiary: #1A1F28;
+  --color-light-red: #FF4141;
   --color-light-blue: #68d2ff;
   --color-baby-yellow: #ebd065;
 }

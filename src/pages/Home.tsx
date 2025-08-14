@@ -1,16 +1,20 @@
 import { useState } from "react";
 import logo from "../assets/Logo.png";
 import LeaderboardElement from "../components/leaderboard/LeaderboardElement";
+import Game from "../components/game/Game";
 
 const Home = () => {
   const [selectedMode, setSelectedMode] = useState<string>("Lako");
+  const [startedGame, setStartedGame] = useState<boolean>(false);
   const modes: string[] = ["Lako", "Srednje", "Teško"];
 
-  return (
+  return startedGame ? (
+    <Game setStartedGame={setStartedGame} gameMode={selectedMode} />
+  ) : (
     <main className="min-h-screen w-screen flex flex-col items-center justify-center">
       <img src={logo} width={500} height={500} />
       <div className="max-w-md flex flex-col gap-6">
-        <button className="bg-light-blue cursor-pointer px-20 py-6 text-2xl font-black rounded-xl shadow-[0_6px_0_0_#96E8FF] hover:shadow-[0_4px_0_0_rgb(135,206,250)] hover:translate-y-[2px] transition-all duration-150">
+        <button onClick={() => setStartedGame(true)} className="bg-light-blue cursor-pointer px-20 py-6 text-2xl font-black rounded-xl shadow-[0_6px_0_0_#96E8FF] hover:shadow-[0_4px_0_0_rgb(135,206,250)] hover:translate-y-[2px] transition-all duration-150">
           ZAPOČNI IGRU
         </button>
         <div className="grid grid-cols-3 bg-[#272C36] p-1 rounded-md gap-1">
