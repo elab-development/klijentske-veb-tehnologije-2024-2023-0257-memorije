@@ -1,58 +1,64 @@
 import { useEffect, useState } from "react";
 
-export type Player = {
-  id: string;
-  name: string;
-  time: string; 
+export type Player = { 
+  id: string; 
+  name: string; 
+  time: string;   
+  timeSec: number 
 };
 
-export function useGetFakePlayers(amount: number = 5) {
+export function useGetFakePlayers(pageSize: number = 5) {
   const [players, setPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
 
-  function formatMs(ms: number) {
-    const totalSec = Math.floor(ms / 1000);
-    const min = Math.floor(totalSec / 60);
-    const sec = totalSec % 60;
-    return `${String(min).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
-  }
+  const formatSec = (totalSec: number) => {
+    const m = Math.floor(totalSec / 60);
+    const s = totalSec % 60;
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  };
 
-  function parseTime(time: string) {
-    const [min, sec] = time.split(":").map(Number);
-    return min * 60 + sec;
+  async function fetchPlayers(count: number, minSec: number) {
+    const res = await fetch(`https://fakerapi.it/api/v2/persons?_quantity=${count}`);
+    const data = await res.json();
+
+    const SPREAD = 120;
+
+    return (data?.data ?? []).map((p: any, i: number) => {
+      const timeSec = minSec + Math.floor(Math.random() * SPREAD);
+      return {
+        id: String(p.id ?? `${Date.now()}-${i}`),
+        name: `${p.firstname} ${p.lastname}`,
+        time: formatSec(timeSec),
+        timeSec,
+      } as Player;
+    });
   }
 
   useEffect(() => {
-    async function fetchPlayers() {
+    (async () => {
       setLoading(true);
-      try {
-        const res = await fetch(
-          `https://fakerapi.it/api/v2/persons?_quantity=${amount}`
-        );
-        const data = await res.json();
+      const first = await fetchPlayers(pageSize, 30); 
+      first.sort((a:Player, b:Player) => a.timeSec - b.timeSec);
+      setPlayers(first);
+      setLoading(false);
+    })();
+  }, [pageSize]);
 
-        const mapped: Player[] = data.data.map((p: any, i: number) => {
-          const randomMs = Math.floor(Math.random() * 90_000) + 30_000; // 30-120s
-          return {
-            id: String(p.id ?? i),
-            name: `${p.firstname} ${p.lastname}`,
-            time: formatMs(randomMs),
-          };
-        });
+  async function loadMore() {
+    setLoadingMore(true);
 
-        mapped.sort((a, b) => parseTime(a.time) - parseTime(b.time));
+    const currentMax = players.length ? players[players.length - 1].timeSec : 30;
 
-        console.log(mapped);
-        setPlayers(mapped);
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
+    const more = await fetchPlayers(pageSize, currentMax + 1);
+    setPlayers(prev => {
+      const merged = [...prev, ...more];
+      merged.sort((a, b) => a.timeSec - b.timeSec);
+      return merged;
+    });
 
-    fetchPlayers();
-  }, [amount]);
+    setLoadingMore(false);
+  }
 
-  return { players, loading };
+  return { players, loading, loadingMore, loadMore };
 }

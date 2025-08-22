@@ -3,6 +3,7 @@ import logo from "../assets/Logo.png";
 import LeaderboardElement from "../components/leaderboard/LeaderboardElement";
 import Game from "../components/game/Game";
 import { Link } from "react-router-dom";
+import lockerIkonica from "../assets/Locker.png"
 
 const Home = () => {
   const [selectedMode, setSelectedMode] = useState<string>("Lako");
@@ -14,6 +15,9 @@ const Home = () => {
   ) : (
     <main className="m-4 min-h-screen flex flex-col items-center justify-center">
       <img src={logo} width={500} height={500} />
+      <Link className="bg-secondary border border-light-gray p-2 w-28 rounded-xl aspect-square flex items-center justify-center absolute right-14 top-14" to="/locker">
+        <img  src={lockerIkonica} alt="Ikonica" width="70px" />
+      </Link>
       <div className="w-full lg:max-w-md flex flex-col gap-6">
         <button onClick={() => setStartedGame(true)} className="bg-light-blue cursor-pointer px-20 py-4 lg:py-6 w-full lg:text-2xl font-black rounded-xl shadow-[0_6px_0_0_#96E8FF] hover:shadow-[0_4px_0_0_rgb(135,206,250)] hover:translate-y-[2px] transition-all duration-150">
           ZAPOČNI IGRU
