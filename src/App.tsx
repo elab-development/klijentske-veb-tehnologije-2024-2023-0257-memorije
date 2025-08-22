@@ -6,14 +6,14 @@ export function App() {
   return (
     <Router>
       <Routes>
-        <Route element={<RequireAuth/>}>
+        <Route element={<RequireAuth />}>
           <Route path="/" element={<Home />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/locker" element={<Locker />} />
         </Route>
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/locker" element={<Locker />} />
       </Routes>
     </Router>
   );
