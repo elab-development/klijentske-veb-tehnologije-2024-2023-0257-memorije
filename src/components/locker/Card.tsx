@@ -12,16 +12,16 @@ const Card = ({ slika, id, naziv, selected, onSelect }: CardProps) => {
   const handleSelect = () => onSelect(id);
   return (
     <div
-      className={`w-full h-[600px] border-2 border-white/20 relative flex flex-col justify-end items-center rounded-xl overflow-hidden backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] ${
+      className={`w-full h-[450px] lg:h-[600px] border-2 border-white/20 relative flex flex-col justify-end items-center rounded-xl overflow-hidden backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] ${
       selected
         ? "border-4 border-baby-yellow shadow-2xl shadow-baby-yellow/30 scale-105"
         : "hover:border-white/40"
       }`}
     >
       {selected ? (
-      <div className="p-4 text-2xl absolute z-20 left-0 right-0 top-4 flex flex-col items-center w-full max-h-max font-black">
+      <div className="p-4 text-lg lg:text-2xl absolute z-20 left-0 right-0 top-2 lg:top-4 flex flex-col items-center w-full max-h-max font-black">
         <span className="bg-baby-yellow text-tertiary px-4 py-2 rounded-full shadow-lg animate-pulse">
-        ✓ IZABRANI
+        IZABRANI
         </span>
       </div>
       ) : null}

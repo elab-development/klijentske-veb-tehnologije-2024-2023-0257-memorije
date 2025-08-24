@@ -7,7 +7,7 @@ export const Profil = () => {
 
   return (
     <div className="lg:absolute lg:mt-0 mt-4 left-14 top-14 rounded-xl lg:border border-light-gray lg:bg-secondary px-6 py-4 flex lg:flex-row flex-col lg:items-start items-center gap-2 lg:gap-4">
-      <div className="relative overflow-hidden rounded-full border-5 lg:border-4 border-white aspect-square w-18 lg:w-20">
+      <div className="relative overflow-hidden rounded-full border-5 lg:border-4 border-white aspect-square w-18 lg:w-16">
         <img
           src={profilIkonica}
           alt="Ikonica"
@@ -22,7 +22,7 @@ export const Profil = () => {
           <LogoutButton />
         </div>
       </div>
-       <div className="lg:hidden absolute right-4 top-10">
+       <div className="lg:hidden absolute right-8 top-10">
           <LogoutButton />
         </div>
     </div>

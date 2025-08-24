@@ -9,7 +9,7 @@ const Leaderboard = () => {
   return (
     <>
       <CustomButton to="/">
-        <Undo2 />
+        <Undo2 size={32}/>
       </CustomButton>
       <main className="relative flex flex-col min-h-screen items-center justify-start py-16">
         <h1 className="text-3xl lg:text-4xl font-black">LEADERBOARD</h1>

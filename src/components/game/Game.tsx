@@ -24,7 +24,7 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
         return 2;
     }
   };
-  const { matrix, hiddenMatrix, flipCard, hintOne, matchedPairs, completed } = useGenerateGame(vratiBrojPolja());
+  const { matrix, hiddenMatrix, flipCard, hintOne, matchedPairs } = useGenerateGame(vratiBrojPolja());
   useEffect(() => {
     const timer = setInterval(() => {
       !victory ? setSeconds((prev) => prev + 1) : clearInterval(timer);
@@ -40,14 +40,18 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
       .padStart(2, "0")}`;
   };
   useEffect(() => {
-    if(completed) {
+    const isGameComplete = hiddenMatrix.every(row => 
+      row.every(cell => cell === true)
+    );
+    
+    if(isGameComplete) {
       console.log("Pobedili ste");
       setVictory(true);
       setTimeout(() => {
         alert(`Pobedili ste! Vreme: ${formatTime(seconds)}`);
       }, 500);
     }
-  }, [completed, seconds, formatTime])
+  }, [hiddenMatrix])
   return (
     <main className="relative flex min-h-screen items-center justify-center">
       <div className="z-10 bg-primary md:border border-tertiary rounded-2xl p-2 md:p-4 lg:p-8 flex lg:flex-row flex-col w-full gap-4 max-w-6xl">
