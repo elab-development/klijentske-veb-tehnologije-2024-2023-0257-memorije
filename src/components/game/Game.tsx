@@ -53,7 +53,7 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
     }
   }, [hiddenMatrix])
   return (
-    <main className="relative flex min-h-screen items-center justify-center">
+    <main className="relative flex lg:min-h-screen items-center justify-center">
       <div className="z-10 bg-primary md:border border-tertiary rounded-2xl p-2 md:p-4 lg:p-8 flex lg:flex-row flex-col w-full gap-4 max-w-6xl">
         <div className="flex lg:hidden items-center justify-between">
           <div className="p-2 flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
@@ -61,7 +61,7 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
           </div>
         </div>
         <div
-          className={`grid p-4 rounded-xl bg-tertiary/10 border border-tertiary gap-2 lg:gap-4 flex-1 ${
+          className={`grid p-2 md:p-4 rounded-xl bg-tertiary/10 border border-tertiary gap-0.5 md:gap-2 lg:gap-4 flex-1 ${
             vratiBrojPolja() === 2
               ? "grid-cols-2"
               : vratiBrojPolja() === 4
@@ -81,13 +81,13 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
                     color: skinData?.secondary,
                   }}
                   onClick={() => flipCard(rowIndex, colIndex)}
-                  className="aspect-square card cursor-pointer group flex items-center justify-center font-bold rounded-xl lg:rounded-2xl bg-dark-blue"
+                  className="aspect-square card cursor-pointer group flex items-center justify-center font-bold rounded-lg md:rounded-xl lg:rounded-2xl bg-dark-blue"
                 >
                   {isRevealed ? (
                     <img 
                       src={col} 
                       alt="card" 
-                      className="w-full h-full card--revealed object-cover rounded-xl lg:rounded-2xl"
+                      className="w-full h-full card--revealed object-cover"
                     />
                   ) : (
                     <span className="text-4xl aspect-square group-hover:-translate-y-2 transition-transform duration-300 md:text-7xl lg:text-[50px] leading-tight text-light-blue">

@@ -35,8 +35,8 @@ const Login = () => {
   };
 
   return (
-    <main className="relative p-4 min-h-screen flex flex-col items-center justify-center">
-      <div className="justify-center z-10 bg-primary md:border border-tertiary rounded-2xl p-8 lg:p-10 flex flex-col w-full gap-4 max-w-lg">
+    <main className="relative p-8 lg:p-4 min-h-screen flex flex-col items-center justify-center">
+      <div className="justify-center z-10 bg-primary md:border border-tertiary rounded-2xl md:p-8 lg:p-10 flex flex-col w-full gap-4 max-w-lg">
         <h1 className="mb-8 font-bold text-3xl text-center">Prijavite se</h1>
 
         <form className="items-center flex flex-col gap-8 w-full" onSubmit={onSubmit}>

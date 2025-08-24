@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-export type Player = { 
-  id: string; 
-  name: string; 
-  time: string;   
-  timeSec: number 
+export type Player = {
+  id: string;
+  name: string;
+  time: string;
+  timeSec: number;
 };
 
 export function useGetFakePlayers(pageSize: number = 5) {
@@ -19,7 +19,9 @@ export function useGetFakePlayers(pageSize: number = 5) {
   };
 
   async function fetchPlayers(count: number, minSec: number) {
-    const res = await fetch(`https://fakerapi.it/api/v2/persons?_quantity=${count}`);
+    const res = await fetch(
+      `https://fakerapi.it/api/v2/persons?_quantity=${count}`
+    );
     const data = await res.json();
 
     const SPREAD = 120;
@@ -34,12 +36,13 @@ export function useGetFakePlayers(pageSize: number = 5) {
       } as Player;
     });
   }
-
+  let fetched = false;
   useEffect(() => {
-    (async () => {
+    !fetched && (async () => {
       setLoading(true);
-      const first = await fetchPlayers(pageSize, 30); 
-      first.sort((a:Player, b:Player) => a.timeSec - b.timeSec);
+      fetched = true;
+      const first = await fetchPlayers(pageSize, 30);
+      first.sort((a: Player, b: Player) => a.timeSec - b.timeSec);
       setPlayers(first);
       setLoading(false);
     })();
@@ -48,10 +51,12 @@ export function useGetFakePlayers(pageSize: number = 5) {
   async function loadMore() {
     setLoadingMore(true);
 
-    const currentMax = players.length ? players[players.length - 1].timeSec : 30;
+    const currentMax = players.length
+      ? players[players.length - 1].timeSec
+      : 30;
 
     const more = await fetchPlayers(pageSize, currentMax + 1);
-    setPlayers(prev => {
+    setPlayers((prev) => {
       const merged = [...prev, ...more];
       merged.sort((a, b) => a.timeSec - b.timeSec);
       return merged;
