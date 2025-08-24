@@ -11,10 +11,10 @@ const Leaderboard = () => {
       <CustomButton to="/">
         <Undo2 size={32}/>
       </CustomButton>
-      <main className="relative flex flex-col min-h-screen items-center justify-start py-16">
+      <main className="relative flex flex-col p-8 lg:min-h-screen items-center justify-start py-16">
         <h1 className="text-3xl lg:text-4xl font-black">LEADERBOARD</h1>
 
-        <div className="mt-10 flex flex-col max-w-3xl w-full gap-6 max-h-[32rem] overflow-auto px-2">
+        <div className="mt-10 flex flex-col max-w-3xl w-full gap-4 pb-4 max-h-[32rem] overflow-auto px-2">
           {loading ? (
             <p className="text-center opacity-70">Učitavanje…</p>
           ) : (
