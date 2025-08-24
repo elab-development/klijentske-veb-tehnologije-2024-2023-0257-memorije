@@ -24,7 +24,7 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
         return 2;
     }
   };
-  const { matrix, hiddenMatrix, flipCard, hintOne, matchedPairs } = useGenerateGame(vratiBrojPolja());
+  const { matrix, hiddenMatrix, flipCard, hintOne, matchedPairs, completed } = useGenerateGame(vratiBrojPolja());
   useEffect(() => {
     const timer = setInterval(() => {
       !victory ? setSeconds((prev) => prev + 1) : clearInterval(timer);
@@ -40,18 +40,14 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
       .padStart(2, "0")}`;
   };
   useEffect(() => {
-    const isGameComplete = hiddenMatrix.every(row => 
-      row.every(cell => cell === true)
-    );
-    
-    if(isGameComplete) {
+    if(completed) {
       console.log("Pobedili ste");
       setVictory(true);
       setTimeout(() => {
         alert(`Pobedili ste! Vreme: ${formatTime(seconds)}`);
       }, 500);
     }
-  }, [hiddenMatrix])
+  }, [completed, seconds, formatTime])
   return (
     <main className="relative flex min-h-screen items-center justify-center">
       <div className="z-10 bg-primary md:border border-tertiary rounded-2xl p-2 md:p-4 lg:p-8 flex lg:flex-row flex-col w-full gap-4 max-w-6xl">
@@ -90,7 +86,7 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
                       className="w-full h-full card--revealed object-cover rounded-xl lg:rounded-2xl"
                     />
                   ) : (
-                    <span className="text-4xl aspect-square group-hover:-translate-y-2 transition-transform duration-300 md:text-7xl lg:text-[80px] leading-tight text-light-blue">
+                    <span className="text-4xl aspect-square group-hover:-translate-y-2 transition-transform duration-300 md:text-7xl lg:text-[50px] leading-tight text-light-blue">
                       ?
                     </span>
                   )}
