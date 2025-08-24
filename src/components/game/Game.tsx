@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import background from "../../assets/background.jpg";
+import { getSkinData } from "../../lib/selectedSkin";
+import { useGenerateGame } from "../../hooks/useGenerateGame";
 
 interface GameProps {
   gameMode: string;
@@ -8,26 +10,27 @@ interface GameProps {
 
 const Game = ({ gameMode, setStartedGame }: GameProps) => {
   const [seconds, setSeconds] = useState(0);
+  const [victory, setVictory] = useState(false);
+  const skinData = getSkinData();
   const vratiBrojPolja = () => {
     switch (gameMode) {
       case "Lako":
-        return 3;
+        return 2;
       case "Srednje":
         return 4;
       case "Teško":
-        return 5;
+        return 6;
       default:
-        return 3;
+        return 2;
     }
   };
-
-  // Timer
+  const { matrix, hiddenMatrix, flipCard, hintOne, matchedPairs } = useGenerateGame(vratiBrojPolja());
   useEffect(() => {
     const timer = setInterval(() => {
-      setSeconds((prev) => prev + 1);
+      !victory ? setSeconds((prev) => prev + 1) : clearInterval(timer);
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [victory]);
 
   const formatTime = (totalSeconds: number) => {
     const minutes = Math.floor(totalSeconds / 60);
@@ -36,10 +39,21 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
       .toString()
       .padStart(2, "0")}`;
   };
-
+  useEffect(() => {
+    const isGameComplete = hiddenMatrix.every(row => 
+      row.every(cell => cell === true)
+    );
+    
+    if(isGameComplete) {
+      console.log("Pobedili ste");
+      setVictory(true);
+      setTimeout(() => {
+        alert(`Pobedili ste! Vreme: ${formatTime(seconds)}`);
+      }, 500);
+    }
+  }, [hiddenMatrix])
   return (
     <main className="relative flex min-h-screen items-center justify-center">
-     
       <div className="z-10 bg-primary md:border border-tertiary rounded-2xl p-2 md:p-4 lg:p-8 flex lg:flex-row flex-col w-full gap-4 max-w-6xl">
         <div className="flex lg:hidden items-center justify-between">
           <div className="p-2 flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
@@ -48,25 +62,41 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
         </div>
         <div
           className={`grid p-4 rounded-xl bg-tertiary/10 border border-tertiary gap-2 lg:gap-4 flex-1 ${
-            vratiBrojPolja() === 3
-              ? "grid-cols-3"
+            vratiBrojPolja() === 2
+              ? "grid-cols-2"
               : vratiBrojPolja() === 4
               ? "grid-cols-4"
-              : "grid-cols-5"
+              : "grid-cols-6"
           }`}
         >
-          {Array.from(
-            { length: vratiBrojPolja() * vratiBrojPolja() },
-            (_, i) => (
-              <div
-                key={i}
-                className="aspect-square flex items-center justify-center font-bold rounded-xl lg:rounded-2xl bg-dark-blue"
-              >
-                <span className="text-4xl md:text-7xl lg:text-[100px] leading-tight text-light-blue">
-                  ?
-                </span>
-              </div>
-            )
+          {matrix.map((row, rowIndex) => 
+            row.map((col, colIndex) => {
+              const isRevealed = hiddenMatrix[rowIndex][colIndex]
+              return (
+                <div
+                  key={`${rowIndex}-${colIndex}`}
+                  style={{
+                    backgroundColor: skinData?.primary,
+                    borderColor: skinData?.secondary,
+                    color: skinData?.secondary,
+                  }}
+                  onClick={() => flipCard(rowIndex, colIndex)}
+                  className="aspect-square card cursor-pointer group flex items-center justify-center font-bold rounded-xl lg:rounded-2xl bg-dark-blue"
+                >
+                  {isRevealed ? (
+                    <img 
+                      src={col} 
+                      alt="card" 
+                      className="w-full h-full card--revealed object-cover rounded-xl lg:rounded-2xl"
+                    />
+                  ) : (
+                    <span className="text-4xl aspect-square group-hover:-translate-y-2 transition-transform duration-300 md:text-7xl lg:text-[80px] leading-tight text-light-blue">
+                      ?
+                    </span>
+                  )}
+                </div>
+              );
+            })
           )}
         </div>
         <div className="flex flex-col justify-between lg:ml-8 w-full lg:w-64">

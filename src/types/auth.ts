@@ -1,8 +1,8 @@
 export type Partija = {
-  id: string;          // npr. uuid ili "1"
+  id: string;
   mode: "Lako" | "Srednje" | "Teško";
-  timeMs: number;      // koliko je brzo odigrao (u ms)
-  playedAt: string;    // ISO datum string
+  timeMs: number;
+  playedAt: string;
 };
 
 export type User = {
@@ -10,8 +10,8 @@ export type User = {
   firstName: string;
   lastName: string;
   username: string;
-  password: string;    // plain text radi jednostavnosti
-  games: Partija[];    // 5 partija
+  password: string;
+  games: Partija[];
 };
 
 export type AuthPayload = {
@@ -19,5 +19,6 @@ export type AuthPayload = {
   username: string;
   fullName: string;
   loggedIn: boolean;
-  loginAt: number;     // Date.now()
+  loginAt: number;
 };
+

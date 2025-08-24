@@ -1,17 +1,68 @@
 [
   {
     "slika": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/22244706/Global_Football_Key_Art.jpg?quality=90&strip=all&crop=21.875,0,56.25,100",
-    "id": 0,
-    "naziv": "Fudbaleri"
+    "id": 2,
+    "naziv": "Fudbaleri",
+    "primary": "#515ee8",
+    "secondary": "#FBBF24",
+    "icons": [
+      "/src/assets/skinovi/fudbaleri/icon-1.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-2.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-3.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-4.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-5.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-6.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-7.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-8.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-9.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-10.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-11.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-12.jpg",
+      "/src/assets/skinovi/fudbaleri/icon-13.jpg"
+    ]
   },
   {
     "slika": "https://admin.esports.gg/wp-content/uploads/2024/05/Fortnite-Marvel-Skins-968x544.jpg",
     "id": 1,
-    "naziv": "Heroji"
+    "naziv": "Heroji",
+    "primary": "#d63a3a",
+    "secondary": "#FFB74D",
+    "icons": [
+      "/src/assets/skinovi/heroji/icon-1.jpg",
+      "/src/assets/skinovi/heroji/icon-2.jpg",
+      "/src/assets/skinovi/heroji/icon-3.jpg",
+      "/src/assets/skinovi/heroji/icon-4.jpg",
+      "/src/assets/skinovi/heroji/icon-5.jpg",
+      "/src/assets/skinovi/heroji/icon-6.jpg",
+      "/src/assets/skinovi/heroji/icon-7.jpg",
+      "/src/assets/skinovi/heroji/icon-8.jpg",
+      "/src/assets/skinovi/heroji/icon-9.jpg",
+      "/src/assets/skinovi/heroji/icon-10.jpg",
+      "/src/assets/skinovi/heroji/icon-11.jpg",
+      "/src/assets/skinovi/heroji/icon-12.jpg",
+      "/src/assets/skinovi/heroji/icon-13.jpg"
+    ]
   },
   {
     "slika": "https://i.ytimg.com/vi/xHaPSUCbPjk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCzmyUbS9_RB-nz_duej0qZVLeQdg",
     "id": 0,
-    "naziv": "Vanzemaljci"
+    "naziv": "Vanzemaljci",
+    "primary": "#4CAF50",
+    "secondary": "#81C784",
+    "icons": [
+      "/src/assets/skinovi/vanzemaljci/icon-1.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-2.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-3.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-4.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-5.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-6.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-7.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-8.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-9.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-10.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-11.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-12.jpg",
+      "/src/assets/skinovi/vanzemaljci/icon-13.jpg"
+    ]
   }
 ]

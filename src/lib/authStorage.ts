@@ -13,6 +13,7 @@ export const saveAuth = (user: User) => {
   };
   localStorage.setItem(AUTH_KEY, JSON.stringify(payload));
   localStorage.setItem(USER_KEY, JSON.stringify(user)); 
+  localStorage.setItem("selectedSkin", "0");
 };
 
 export const getAuth = (): AuthPayload | null => {
