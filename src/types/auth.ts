@@ -1,8 +1,9 @@
 export type Partija = {
   id: string;
-  mode: "Lako" | "Srednje" | "Teško";
+  mode: string;
   timeMs: number;
   playedAt: string;
+  accuracy: number;
 };
 
 export type User = {
@@ -21,4 +22,3 @@ export type AuthPayload = {
   loggedIn: boolean;
   loginAt: number;
 };
-

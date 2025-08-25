@@ -41,6 +41,7 @@ export const useGenerateGame = (size: number) => {
   const [isLocked, setIsLocked] = useState(false);
   const [attempts, setAttempts] = useState(0);
   const [correctMatches, setCorrectMatches] = useState(0);
+  const [hintedIcon, setHintedIcon] = useState<number[][] | null>(null);
   const timeoutRef = useRef<number | null>(null);
 
   const regenerateGame = () => {
@@ -105,36 +106,48 @@ export const useGenerateGame = (size: number) => {
       }
     }
   };
-  const hintOne = () => {
-    const hiddenPositions: { row: number; col: number }[] = [];
-    for (let i = 0; i < size; i++) {
-      for (let j = 0; j < size; j++) {
-        if (!hiddenMatrix[i][j] && !matchedPairs.has(matrix[i][j])) {
-          hiddenPositions.push({ row: i, col: j });
+  const showHint = () => {
+    if (flippedCards.length === 1) {
+      const flippedCard = flippedCards[0];
+      const flippedIcon = matrix[flippedCard.row][flippedCard.col];
+      
+      for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+          if (
+            !hiddenMatrix[i][j] && 
+            !matchedPairs.has(matrix[i][j]) &&
+            matrix[i][j] === flippedIcon &&
+            (i !== flippedCard.row || j !== flippedCard.col)
+          ) {
+            const newMatrix = [...hiddenMatrix];
+            newMatrix[i][j] = true;
+            setHiddenMatrix(newMatrix);
+            setHintedIcon([[i, j]]);
+
+            setTimeout(() => {
+              const resetMatrix = [...newMatrix];
+              resetMatrix[i][j] = false;
+              setHiddenMatrix(resetMatrix);
+              setHintedIcon(null);
+            }, 2000);
+            return;
+          }
         }
       }
     }
-
-    if (hiddenPositions.length > 0) {
-      const randomPos =
-        hiddenPositions[Math.floor(Math.random() * hiddenPositions.length)];
-      const newMatrix = [...hiddenMatrix];
-      newMatrix[randomPos.row][randomPos.col] = true;
-      setHiddenMatrix(newMatrix);
-
-      setTimeout(() => {
-        const resetMatrix = [...newMatrix];
-        resetMatrix[randomPos.row][randomPos.col] = false;
-        setHiddenMatrix(resetMatrix);
-      }, 2000);
-    }
   };
+
+  // Check if hint should be enabled (when exactly one card is flipped)
+  const isHintEnabled = flippedCards.length === 1;
 
   return {
     matrix,
     hiddenMatrix,
     flipCard,
-    hintOne,
+    hintedIcon,
+    showHint,
+    isHintEnabled,
+    flippedCards,
     matchedPairs,
     isLocked,
     attempts,
