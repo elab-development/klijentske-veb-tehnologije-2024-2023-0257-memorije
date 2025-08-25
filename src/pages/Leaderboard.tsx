@@ -4,15 +4,16 @@ import LeaderboardElement from "../components/leaderboard/LeaderboardElement";
 import { useGetFakePlayers } from "../hooks/getFakePlayers";
 
 const Leaderboard = () => {
-  const { players, loading, loadingMore, loadMore } = useGetFakePlayers(5);
+  const { players, loading, loadingMore, loadMore } = useGetFakePlayers(3);
 
   return (
     <>
       <CustomButton to="/">
-        <Undo2 size={32}/>
+        <Undo2 size={32} />
       </CustomButton>
       <main className="relative flex flex-col p-8 lg:min-h-screen items-center justify-start py-16">
         <h1 className="text-3xl lg:text-4xl font-black">LEADERBOARD</h1>
+        <span className="uppercase text-sm opacity-60">(Samo za srednji nivo)</span>
 
         <div className="mt-10 flex flex-col max-w-3xl w-full gap-4 pb-4 max-h-[32rem] overflow-auto px-2">
           {loading ? (

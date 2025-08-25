@@ -6,11 +6,11 @@
     "username": "jovana",
     "password": "lozinka123",
     "games": [
-      { "id": "g1", "mode": "Lako",   "timeMs": 27500, "playedAt": "2025-08-01T14:10:00Z" },
-      { "id": "g2", "mode": "Srednje","timeMs": 42000, "playedAt": "2025-08-02T15:10:00Z" },
-      { "id": "g3", "mode": "Teško",  "timeMs": 61000, "playedAt": "2025-08-03T16:10:00Z" },
-      { "id": "g4", "mode": "Lako",   "timeMs": 23000, "playedAt": "2025-08-04T17:10:00Z" },
-      { "id": "g5", "mode": "Srednje","timeMs": 39000, "playedAt": "2025-08-05T18:10:00Z" }
+      { "id": "g1", "mode": "Lako",   "timeMs": 27500, "accuracy": 92.5, "playedAt": "2025-08-01T14:10:00Z" },
+      { "id": "g2", "mode": "Srednje","timeMs": 42000, "accuracy": 87.3, "playedAt": "2025-08-02T15:10:00Z" },
+      { "id": "g3", "mode": "Teško",  "timeMs": 61000, "accuracy": 94.1, "playedAt": "2025-08-03T16:10:00Z" },
+      { "id": "g4", "mode": "Lako",   "timeMs": 23000, "accuracy": 89.7, "playedAt": "2025-08-04T17:10:00Z" },
+      { "id": "g5", "mode": "Srednje","timeMs": 39000, "accuracy": 91.2, "playedAt": "2025-08-05T18:10:00Z" }
     ]
   },
   {
@@ -20,11 +20,11 @@
     "username": "matija",
     "password": "pass",
     "games": [
-      { "id": "g1", "mode": "Lako",   "timeMs": 30000, "playedAt": "2025-08-01T10:00:00Z" },
-      { "id": "g2", "mode": "Lako",   "timeMs": 28000, "playedAt": "2025-08-02T10:00:00Z" },
-      { "id": "g3", "mode": "Srednje","timeMs": 45000, "playedAt": "2025-08-03T10:00:00Z" },
-      { "id": "g4", "mode": "Teško",  "timeMs": 70000, "playedAt": "2025-08-04T10:00:00Z" },
-      { "id": "g5", "mode": "Srednje","timeMs": 48000, "playedAt": "2025-08-05T10:00:00Z" }
+      { "id": "g1", "mode": "Lako",   "timeMs": 30000, "accuracy": 88.4, "playedAt": "2025-08-01T10:00:00Z" },
+      { "id": "g2", "mode": "Lako",   "timeMs": 28000, "accuracy": 95.6, "playedAt": "2025-08-02T10:00:00Z" },
+      { "id": "g3", "mode": "Srednje","timeMs": 45000, "accuracy": 83.9, "playedAt": "2025-08-03T10:00:00Z" },
+      { "id": "g4", "mode": "Teško",  "timeMs": 70000, "accuracy": 76.2, "playedAt": "2025-08-04T10:00:00Z" },
+      { "id": "g5", "mode": "Srednje","timeMs": 48000, "accuracy": 90.8, "playedAt": "2025-08-05T10:00:00Z" }
     ]
   }
 ]

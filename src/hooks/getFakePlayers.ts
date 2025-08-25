@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getCurrentUser } from "../lib/authStorage";
 
 export type Player = {
   id: string;
@@ -38,14 +39,26 @@ export function useGetFakePlayers(pageSize: number = 5) {
   }
   let fetched = false;
   useEffect(() => {
-    !fetched && (async () => {
-      setLoading(true);
-      fetched = true;
-      const first = await fetchPlayers(pageSize, 30);
-      first.sort((a: Player, b: Player) => a.timeSec - b.timeSec);
-      setPlayers(first);
-      setLoading(false);
-    })();
+    !fetched &&
+      (async () => {
+        setLoading(true);
+        fetched = true;
+        const first = await fetchPlayers(pageSize, 30);
+        const userData = getCurrentUser();
+        const filteredUserData =
+          userData?.games
+            ?.filter((game) => game.mode === "Srednje")
+            ?.map((game, index) => ({
+              id: `user-${index}`,
+              name: `${userData.firstName} ${userData.lastName}`,
+              time: formatSec(game.timeMs / 1000),
+              timeSec: game.timeMs / 1000,
+            })) || [];
+        first.push(...filteredUserData);
+        first.sort((a: Player, b: Player) => a.timeSec - b.timeSec);
+        setPlayers(first);
+        setLoading(false);
+      })();
   }, [pageSize]);
 
   async function loadMore() {

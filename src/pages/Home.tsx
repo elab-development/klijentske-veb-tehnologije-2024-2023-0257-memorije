@@ -3,23 +3,31 @@ import logo from "../assets/Logo.png";
 import LeaderboardElement from "../components/leaderboard/LeaderboardElement";
 import Game from "../components/game/Game";
 import { Link } from "react-router-dom";
-import lockerIkonica from "../assets/Locker.png"
+import lockerIkonica from "../assets/Locker.png";
+import { useGetFakePlayers } from "../hooks/getFakePlayers";
 
 const Home = () => {
   const [selectedMode, setSelectedMode] = useState<string>("Lako");
   const [startedGame, setStartedGame] = useState<boolean>(false);
   const modes: string[] = ["Lako", "Srednje", "Teško"];
+  const { players, loading } = useGetFakePlayers(3);
 
   return startedGame ? (
     <Game setStartedGame={setStartedGame} gameMode={selectedMode} />
   ) : (
     <main className="m-8 lg:min-h-screen flex flex-col items-center justify-center">
       <img src={logo} width={500} height={500} />
-      <Link className="bg-secondary border border-light-gray p-2 w-14 lg:w-28 rounded-xl aspect-square flex items-center justify-center absolute left-8 lg:right-14 lg:left-auto top-10 lg:top-14" to="/locker">
-        <img  src={lockerIkonica} alt="Ikonica" width="70px" />
+      <Link
+        className="bg-secondary border border-light-gray p-2 w-14 lg:w-28 rounded-xl aspect-square flex items-center justify-center absolute left-8 lg:right-14 lg:left-auto top-10 lg:top-14"
+        to="/locker"
+      >
+        <img src={lockerIkonica} alt="Ikonica" width="70px" />
       </Link>
       <div className="w-full lg:max-w-md flex flex-col gap-6">
-        <button onClick={() => setStartedGame(true)} className="bg-light-blue cursor-pointer px-20 py-4 lg:py-6 w-full lg:text-2xl font-black rounded-xl shadow-[0_6px_0_0_#96E8FF] hover:shadow-[0_4px_0_0_rgb(135,206,250)] hover:translate-y-[2px] transition-all duration-150">
+        <button
+          onClick={() => setStartedGame(true)}
+          className="bg-light-blue cursor-pointer px-20 py-4 lg:py-6 w-full lg:text-2xl font-black rounded-xl shadow-[0_6px_0_0_#96E8FF] hover:shadow-[0_4px_0_0_rgb(135,206,250)] hover:translate-y-[2px] transition-all duration-150"
+        >
           ZAPOČNI IGRU
         </button>
         <div className="grid grid-cols-3 bg-[#272C36] p-1 rounded-md gap-1">
@@ -41,18 +49,25 @@ const Home = () => {
       <div className="flex gap-4 mt-4 flex-col w-full lg:max-w-2xl">
         <h2 className="text-lg font-bold">Leaderboard</h2>
         <div className="flex overflow-hidden relative flex-col gap-4 w-full items-center">
-          <Link className="px-4 py-2 rounded-full bg-light-gray font-black text-xl absolute max-w-max mx-auto bottom-1 z-30" to="/leaderboard">VIDI SVE</Link>
-          <div className="bg-gradient-to-t from-primary to-primary/0 absolute inset-0"/>
-          {Array(3)
-            .fill(null)
-            .map((_, index) => (
+          <Link
+            className="px-4 py-2 rounded-full bg-light-gray font-black text-xl absolute max-w-max mx-auto bottom-1 z-30"
+            to="/leaderboard"
+          >
+            VIDI SVE
+          </Link>
+          <div className="bg-gradient-to-t from-primary to-primary/0 absolute inset-0" />
+          {!loading ? (
+            players.slice(0,4).map((player, index) => (
               <LeaderboardElement
                 key={index}
                 number={index + 1}
-                name={`Player ${index + 1}`}
-                time={`00:0${index + 1}`}
+                name={player.name}
+                time={player.time}
               />
-            ))}
+            ))
+          ) : (
+            <p className="text-center opacity-70">Učitavanje…</p>
+          )}
         </div>
       </div>
     </main>

@@ -19,23 +19,23 @@ export default function VictoryModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-30 flex flex-col bg-primary/90 items-center justify-center text-center text-white">
+    <div className="fixed  inset-0 z-30 flex flex-col bg-primary/90 items-center justify-center text-center text-white">
       <img
         src={VictoryImage}
         alt="Victory Royale"
         className="w-[90%] victory max-w-[640px] drop-shadow-[0_14px_32px_rgba(0,0,0,0.65)] mb-1"
       />
 
-      <div className="mt-2 w-full max-w-md px-2">
-        <p className="text-3xl font-extrabold tracking-sm uppercase">
+      <div className="mt-2 w-full max-w-md lg:p-0 p-8">
+        <p className="text-2xl lg:text-3xl font-extrabold tracking-sm uppercase">
           NOVI REKORD!
         </p>
 
-        <p className="mt-0 text-8xl leading-sm font-black tabular-nums">
+        <p className="mt-0 text-7xl lg:text-8xl leading-sm font-black tabular-nums">
           {time}
         </p>
 
-        <p className="mt-1 text-3xl font-extrabold">
+        <p className="mt-1 text-xl lg:text-3xl font-extrabold">
           POGAĐANJE:{" "}
           <span className="font-extrabold text-baby-yellow">
             {accuracy.toFixed(1)}%
@@ -51,9 +51,9 @@ export default function VictoryModal({
 
         <button
           onClick={onHome}
-          className="bg-secondary font-bold lg:text-xl w-full mt-4 border border-light-gray px-8 py-4 rounded-xl flex items-center justify-center"
+          className="bg-secondary font-bold lg:text-xl w-full mt-4 border border-light-gray px-8 py-4 rounded-xl flex items-center cursor-pointer justify-center"
         >
-          Nazad na početnu <Undo2 size={20} className="ml-2" />
+          NAZAD NA POČETNU <Undo2 size={20} className="ml-2" />
         </button>
       </div>
     </div>

@@ -25,8 +25,14 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
         return 2;
     }
   };
-  const { matrix, hiddenMatrix, flipCard, regenerateGame, attempts, correctMatches } =
-    useGenerateGame(vratiBrojPolja());
+  const {
+    matrix,
+    hiddenMatrix,
+    flipCard,
+    regenerateGame,
+    attempts,
+    correctMatches,
+  } = useGenerateGame(vratiBrojPolja());
   useEffect(() => {
     const timer = setInterval(() => {
       !victory ? setSeconds((prev) => prev + 1) : clearInterval(timer);
@@ -49,6 +55,22 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
     if (isGameComplete) {
       console.log("Pobedili ste");
       setVictory(true);
+      const currentUser = JSON.parse(
+        localStorage.getItem("currentUser") || "{}"
+      );
+      if (currentUser && currentUser.games) {
+        currentUser.games.push({
+          id: `g${currentUser.games.length + 1}`,
+          mode: gameMode,
+          timeMs: seconds * 1000,
+          accuracy: Number((attempts > 0
+            ? (correctMatches / attempts) * 100
+            : 100
+          ).toFixed(1)),
+          playedAt: new Date().toISOString(),
+        });
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
+      }
     }
   }, [hiddenMatrix]);
   const handleReplay = () => {
@@ -61,19 +83,23 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
     <main className="relative flex lg:min-h-screen items-center justify-center">
       <VictoryModal
         time={formatTime(seconds)}
-        accuracy={attempts > 0 ? Math.round((correctMatches / attempts) * 100) : 100}
+        accuracy={attempts > 0 ? (correctMatches / attempts) * 100 : 100}
         open={victory}
         onReplay={() => handleReplay()}
         onHome={() => setStartedGame(false)}
       />
-      <div className="z-10 bg-primary md:border border-tertiary rounded-2xl p-2 md:p-4 lg:p-8 flex lg:flex-row flex-col w-full gap-4 max-w-6xl">
-        <div className="flex lg:hidden flex-row lg:flex-col items-center justify-between">
-          <div className="p-2 flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
+      <div className="z-10 bg-primary md:border border-tertiary rounded-2xl p-2 md:p-4 lg:p-8 flex lg:flex-row flex-col w-full gap-4 max-w-5xl">
+        <div className="flex lg:hidden gap-4 flex-row lg:flex-col items-center justify-between">
+          <div className="p-2 flex w-64 rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
             <span className="text-4xl font-black">{formatTime(seconds)}</span>
           </div>
-          <div className="p-2 flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
-            <span className="text-4xl font-black">
-              {attempts > 0 ? Math.round((correctMatches / attempts) * 100) : 100}%
+          <div className="p-2 flex w-full flex-col justify-center">
+            <span className="text-base font-bold leading-tight">POGAĐANJE</span>
+            <span className="text-xl font-black">
+              {attempts > 0
+                ? ((correctMatches / attempts) * 100).toFixed(1)
+                : 100}
+              %
             </span>
           </div>
         </div>
@@ -119,13 +145,17 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
           )}
         </div>
         <div className="flex flex-col justify-between lg:ml-8 w-full lg:w-64">
-          <div className="flex flex-col gap-4">
-            <div className="p-4 hidden lg:flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
+          <div className="hidden lg:flex flex-col gap-4">
+            <div className="p-4 flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
               <span className="text-7xl font-black">{formatTime(seconds)}</span>
             </div>
-            <div className="p-2 flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
-              <span className="text-4xl font-black">
-                {attempts > 0 ? Math.round((correctMatches / attempts) * 100) : 100}%
+            <div className="p-4 flex flex-col w-full rounded-xl bg-tertiary/10 border border-tertiary justify-center">
+              <span className="text-xl font-bold leading-tight">POGAĐANJE</span>
+              <span className="text-2xl font-black">
+                {attempts > 0
+                  ? ((correctMatches / attempts) * 100).toFixed(1)
+                  : 100}
+                %
               </span>
             </div>
           </div>
