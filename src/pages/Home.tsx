@@ -15,7 +15,7 @@ const Home = () => {
   ) : (
     <main className="m-8 lg:min-h-screen flex flex-col items-center justify-center">
       <img src={logo} width={500} height={500} />
-      <Link className="bg-secondary border border-light-gray p-2 w-14 lg:w-28 rounded-xl aspect-square flex items-center justify-center absolute left-8 lg:right-14 top-10 lg:top-14" to="/locker">
+      <Link className="bg-secondary border border-light-gray p-2 w-14 lg:w-28 rounded-xl aspect-square flex items-center justify-center absolute left-8 lg:right-14 lg:left-auto top-10 lg:top-14" to="/locker">
         <img  src={lockerIkonica} alt="Ikonica" width="70px" />
       </Link>
       <div className="w-full lg:max-w-md flex flex-col gap-6">

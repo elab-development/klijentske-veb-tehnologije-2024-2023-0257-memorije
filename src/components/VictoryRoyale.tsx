@@ -1,3 +1,4 @@
+import { Undo2 } from "lucide-react";
 import VictoryImage from "../assets/VictoryRoyaleSlate.png";
 
 type Props = {
@@ -18,62 +19,41 @@ export default function VictoryModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center text-center text-white pointer-events-none">
+    <div className="fixed inset-0 z-30 flex flex-col bg-primary/90 items-center justify-center text-center text-white">
       <img
         src={VictoryImage}
         alt="Victory Royale"
-        className="w-[90%] max-w-[640px] drop-shadow-[0_14px_32px_rgba(0,0,0,0.65)] pointer-events-auto mb-1"
+        className="w-[90%] victory max-w-[640px] drop-shadow-[0_14px_32px_rgba(0,0,0,0.65)] mb-1"
       />
 
-      <div className="mt-2 w-full max-w-[380px] px-2">
-        <p
-          className="text-[32px] font-extrabold tracking-[0.05em] uppercase"
-          style={{ textShadow: "0 2px 8px rgba(0,0,0,.6)" }}
-        >
+      <div className="mt-2 w-full max-w-md px-2">
+        <p className="text-3xl font-extrabold tracking-sm uppercase">
           NOVI REKORD!
         </p>
 
-        <p
-          className="mt-0 text-[84px] leading-[0.9] font-black tabular-nums"
-          style={{ textShadow: "0 3px 12px rgba(0,0,0,.65)" }}
-        >
+        <p className="mt-0 text-8xl leading-sm font-black tabular-nums">
           {time}
         </p>
 
-        <p
-          className="mt-1 text-[28px] font-extrabold"
-          style={{ textShadow: "0 2px 8px rgba(0,0,0,.6)" }}
-        >
+        <p className="mt-1 text-3xl font-extrabold">
           POGAĐANJE:{" "}
-          <span className="font-extrabold text-yellow-400">
+          <span className="font-extrabold text-baby-yellow">
             {accuracy.toFixed(1)}%
           </span>
         </p>
 
         <button
           onClick={onReplay}
-          className="
-            relative mt-5 w-full h-15 rounded-xl py-3 font-extrabold text-white text-[16px]
-            bg-gradient-to-b from-[#FFD966] to-[#E6B800]
-            shadow-[0_4px_0_#A67C00]
-             hover:from-[#FFE680] hover:to-[#FFCC00]
-             active:translate-y-[2px] active:shadow-[0_2px_0_#A67C00]
-            transition-all
-          "
+          className="bg-baby-yellow text-white mt-2 cursor-pointer py-4 px-8 w-full lg:text-xl font-black rounded-xl shadow-[0_6px_0_0_#9D6F3A] hover:shadow-[0_4px_0_0_#9D6F3A] hover:translate-y-[2px] transition-all duration-150 transform hover:scale-105 active:scale-95"
         >
           IGRAJ PONOVO
         </button>
 
         <button
           onClick={onHome}
-          className="
-            mt-3 w-full h-12 rounded-[14px] py-3 font-semibold
-            bg-[rgba(23,28,39,0.85)] hover:bg-[rgba(23,28,39,0.95)]
-            text-white/95 border border-white/[0.08]
-            pointer-events-auto
-          "
+          className="bg-secondary font-bold lg:text-xl w-full mt-4 border border-light-gray px-8 py-4 rounded-xl flex items-center justify-center"
         >
-          Nazad na početnu ↩
+          Nazad na početnu <Undo2 size={20} className="ml-2" />
         </button>
       </div>
     </div>

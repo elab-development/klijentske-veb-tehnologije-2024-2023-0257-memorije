@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import background from "../../assets/background.jpg";
 import { getSkinData } from "../../lib/selectedSkin";
 import { useGenerateGame } from "../../hooks/useGenerateGame";
+import VictoryModal from "../VictoryRoyale";
 
 interface GameProps {
   gameMode: string;
@@ -24,7 +25,8 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
         return 2;
     }
   };
-  const { matrix, hiddenMatrix, flipCard, hintOne, matchedPairs } = useGenerateGame(vratiBrojPolja());
+  const { matrix, hiddenMatrix, flipCard, regenerateGame, attempts, correctMatches } =
+    useGenerateGame(vratiBrojPolja());
   useEffect(() => {
     const timer = setInterval(() => {
       !victory ? setSeconds((prev) => prev + 1) : clearInterval(timer);
@@ -40,24 +42,39 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
       .padStart(2, "0")}`;
   };
   useEffect(() => {
-    const isGameComplete = hiddenMatrix.every(row => 
-      row.every(cell => cell === true)
+    const isGameComplete = hiddenMatrix.every((row) =>
+      row.every((cell) => cell === true)
     );
-    
-    if(isGameComplete) {
+
+    if (isGameComplete) {
       console.log("Pobedili ste");
       setVictory(true);
-      setTimeout(() => {
-        alert(`Pobedili ste! Vreme: ${formatTime(seconds)}`);
-      }, 500);
     }
-  }, [hiddenMatrix])
+  }, [hiddenMatrix]);
+  const handleReplay = () => {
+    setStartedGame(true);
+    setVictory(false);
+    setSeconds(0);
+    regenerateGame();
+  };
   return (
     <main className="relative flex lg:min-h-screen items-center justify-center">
+      <VictoryModal
+        time={formatTime(seconds)}
+        accuracy={attempts > 0 ? Math.round((correctMatches / attempts) * 100) : 100}
+        open={victory}
+        onReplay={() => handleReplay()}
+        onHome={() => setStartedGame(false)}
+      />
       <div className="z-10 bg-primary md:border border-tertiary rounded-2xl p-2 md:p-4 lg:p-8 flex lg:flex-row flex-col w-full gap-4 max-w-6xl">
-        <div className="flex lg:hidden items-center justify-between">
+        <div className="flex lg:hidden flex-row lg:flex-col items-center justify-between">
           <div className="p-2 flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
             <span className="text-4xl font-black">{formatTime(seconds)}</span>
+          </div>
+          <div className="p-2 flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
+            <span className="text-4xl font-black">
+              {attempts > 0 ? Math.round((correctMatches / attempts) * 100) : 100}%
+            </span>
           </div>
         </div>
         <div
@@ -69,9 +86,9 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
               : "grid-cols-6"
           }`}
         >
-          {matrix.map((row, rowIndex) => 
+          {matrix.map((row, rowIndex) =>
             row.map((col, colIndex) => {
-              const isRevealed = hiddenMatrix[rowIndex][colIndex]
+              const isRevealed = hiddenMatrix[rowIndex][colIndex];
               return (
                 <div
                   key={`${rowIndex}-${colIndex}`}
@@ -80,13 +97,15 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
                     borderColor: skinData?.secondary,
                     color: skinData?.secondary,
                   }}
-                  onClick={() => flipCard(rowIndex, colIndex)}
+                  onClick={() => {
+                    flipCard(rowIndex, colIndex);
+                  }}
                   className="aspect-square card cursor-pointer group flex items-center justify-center font-bold rounded-lg md:rounded-xl lg:rounded-2xl bg-dark-blue"
                 >
                   {isRevealed ? (
-                    <img 
-                      src={col} 
-                      alt="card" 
+                    <img
+                      src={col}
+                      alt="card"
                       className="w-full h-full card--revealed object-cover"
                     />
                   ) : (
@@ -100,9 +119,17 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
           )}
         </div>
         <div className="flex flex-col justify-between lg:ml-8 w-full lg:w-64">
-          <div className="p-4 hidden lg:flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
-            <span className="text-7xl font-black">{formatTime(seconds)}</span>
+          <div className="flex flex-col gap-4">
+            <div className="p-4 hidden lg:flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
+              <span className="text-7xl font-black">{formatTime(seconds)}</span>
+            </div>
+            <div className="p-2 flex w-full rounded-xl bg-tertiary/10 border border-tertiary items-center justify-center">
+              <span className="text-4xl font-black">
+                {attempts > 0 ? Math.round((correctMatches / attempts) * 100) : 100}%
+              </span>
+            </div>
           </div>
+
           <button
             onClick={() => setStartedGame(false)}
             className="bg-light-red mb-2 cursor-pointer px-6 py-3 lg:py-4 text-base md:text-xl lg:text-2xl font-black rounded-xl shadow-[0_6px_0_0_#FF6C6C] hover:shadow-[0_4px_0_0_#ab4141] hover:translate-y-[2px] transition-all duration-150"
