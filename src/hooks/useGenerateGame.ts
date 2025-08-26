@@ -137,7 +137,6 @@ export const useGenerateGame = (size: number) => {
     }
   };
 
-  // Check if hint should be enabled (when exactly one card is flipped)
   const isHintEnabled = flippedCards.length === 1;
 
   return {

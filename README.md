@@ -1,69 +1,62 @@
-# React + TypeScript + Vite
+# 🎮 Fortnite Memory Game  
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Dobrodošli u **Fortnite Memory Game** – zabavnu i izazovnu memory igru inspirisanu Fortnite univerzumom.  
+Cilj igre je da pronađeš sve parove karata u što kraćem vremenu i upišeš se na **Leaderboard**!  
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Funkcionalnosti
 
-## Expanding the ESLint configuration
+- 🔓 **Locker** – biraj između 3 vrste skinova:
+  - 👽 Vanzemaljci (default)  
+  - 🦸 Heroji  
+  - ⚽ Fudbaleri  
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🎯 **Tri težine igre**:
+  - 🟢 Laki (2x2)  
+  - 🟡 Srednji (4x4)  
+  - 🔴 Teški (6x6)  
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- 📱 **Mobile-friendly** – igra je prilagođena za mobilne uređaje.  
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- 🏆 **Leaderboard**  
+  - Prikazuje rezultate svih igrača (uključujući i "fejk" igrače 😅).  
+  - Sortiranje po težini: laki / srednji / teški.  
+  - Rangiranje se zasniva **isključivo na vremenu** ⏱️ (accuracy se prati, ali ne utiče na plasman).  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 👤 **Profile**  
+  - Pogledaj svoje igre i statistiku.  
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- 📊 **Praćenje performansi**  
+  - Accuracy (pogodci vs. pokušaji).  
+  - Najbolje vreme po težini.  
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🛠️ Tehnologije
+
+- ⚡ [Vite](https://vitejs.dev/)  
+- ⚛️ [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)  
+- 🎨 [TailwindCSS](https://tailwindcss.com/)  
+
+---
+
+## 📥 Pokretanje projekta lokalno
+
+1. Kloniraj repozitorijum:  
+  ```bash
+  git clone https://github.com/elab-development/klijentske-veb-tehnologije-2024-2023-0257-memorije.git
+  cd klijentske-veb-tehnologije-2024-2023-0257-memorije
+  ```
+
+2. Instaliraj dependencije:
+  ```bash
+  npm install
+  ```
+
+3. Pokreni projekat u development modu:
+  ```bash
+  npm run dev
+  ```
+
+4. Otvori u browseru: [http://localhost:5173](http://localhost:5173)

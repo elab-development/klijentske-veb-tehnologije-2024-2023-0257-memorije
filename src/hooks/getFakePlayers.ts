@@ -1,17 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getCurrentUser } from "../lib/authStorage";
 
 export type Player = {
   id: string;
+  mode: string;
   name: string;
   time: string;
   timeSec: number;
 };
 
-export function useGetFakePlayers(pageSize: number = 5) {
-  const [players, setPlayers] = useState<Player[]>([]);
+export function useGetFakePlayers(pageSize: number = 5, selectedMode?: string) {
+  const [allPlayers, setAllPlayers] = useState<Player[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
+  const fetchedRef = useRef(false);
 
   const formatSec = (totalSec: number) => {
     const m = Math.floor(totalSec / 60);
@@ -19,7 +21,7 @@ export function useGetFakePlayers(pageSize: number = 5) {
     return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
   };
 
-  async function fetchPlayers(count: number, minSec: number) {
+  async function fetchPlayers(count: number, minSec: number, gameMode?: string) {
     const res = await fetch(
       `https://fakerapi.it/api/v2/persons?_quantity=${count}`
     );
@@ -33,43 +35,48 @@ export function useGetFakePlayers(pageSize: number = 5) {
         id: String(p.id ?? `${Date.now()}-${i}`),
         name: `${p.firstname} ${p.lastname}`,
         time: formatSec(timeSec),
+        mode: gameMode ? gameMode : ["Lako", "Srednje", "Teško"][Math.floor(Math.random() * 3)],
         timeSec,
       } as Player;
     });
   }
-  let fetched = false;
   useEffect(() => {
-    !fetched &&
+    if (!fetchedRef.current) {
       (async () => {
         setLoading(true);
-        fetched = true;
+        fetchedRef.current = true;
         const first = await fetchPlayers(pageSize, 30);
         const userData = getCurrentUser();
         const filteredUserData =
           userData?.games
-            ?.filter((game) => game.mode === "Srednje")
             ?.map((game, index) => ({
               id: `user-${index}`,
               name: `${userData.firstName} ${userData.lastName}`,
               time: formatSec(game.timeMs / 1000),
               timeSec: game.timeMs / 1000,
+              mode: game.mode,
             })) || [];
         first.push(...filteredUserData);
         first.sort((a: Player, b: Player) => a.timeSec - b.timeSec);
-        setPlayers(first);
+        setAllPlayers(first);
         setLoading(false);
       })();
+    }
   }, [pageSize]);
 
-  async function loadMore() {
+  const players = selectedMode 
+    ? allPlayers.filter((p) => p.mode === selectedMode)
+    : allPlayers;
+
+  async function loadMore(gameMode?: string) {
     setLoadingMore(true);
 
-    const currentMax = players.length
-      ? players[players.length - 1].timeSec
+    const currentMax = allPlayers.length
+      ? allPlayers[allPlayers.length - 1].timeSec
       : 30;
 
-    const more = await fetchPlayers(pageSize, currentMax + 1);
-    setPlayers((prev) => {
+    const more = await fetchPlayers(pageSize, currentMax + 1, gameMode);
+    setAllPlayers((prev) => {
       const merged = [...prev, ...more];
       merged.sort((a, b) => a.timeSec - b.timeSec);
       return merged;
