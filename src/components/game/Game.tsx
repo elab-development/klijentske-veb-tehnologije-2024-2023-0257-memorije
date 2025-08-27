@@ -205,12 +205,18 @@ const Game = ({ gameMode, setStartedGame }: GameProps) => {
                 </span>
                 <div className="text-2xl font-black">
                   <span className="text-baby-yellow">{matchedPairs.size}</span>/
-                  {vratiBrojPolja()}
+                  {(vratiBrojPolja() * vratiBrojPolja()) / 2}
                 </div>
               </div>
             </div>
           </div>
-
+          <div className="flex lg:hidden px-4 flex-col mt-2 mb-4">
+            <span className="text-base font-bold leading-tight">POGOĐENO</span>
+            <div className="text-lg font-black">
+              <span className="text-baby-yellow">{matchedPairs.size}</span>/
+              {(vratiBrojPolja() * vratiBrojPolja()) / 2}
+            </div>
+          </div>
           <button
             onClick={() => setStartedGame(false)}
             className="bg-light-red mb-2 cursor-pointer px-6 py-3 lg:py-4 text-base md:text-xl lg:text-2xl font-black rounded-xl shadow-[0_6px_0_0_#FF6C6C] hover:shadow-[0_4px_0_0_#ab4141] hover:translate-y-[2px] transition-all duration-150"
